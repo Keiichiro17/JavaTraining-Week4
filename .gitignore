@@ -1,0 +1,8 @@
+
+# Ignore build files
+.gradle/
+build/
+data/
+*.mv.db
+.DS_Store
+Thumbs.db
