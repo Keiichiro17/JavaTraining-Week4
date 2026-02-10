@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 概要
 Spring BootとSpring Data JPAを用いてタスク管理APIをDB対応に改良する。
 タスク管理APIを拡張し、H2 Databaseを利用して永続化、及び、CRUDの確認と例外ハンドリング(400、404)を表示させる。
@@ -90,3 +91,5 @@ irm http://localhost:8080/api/tasks/9999 `
 StatusCode : 404
 見つかりません
 
+=======
+>>>>>>> 6e772b9 (fix: prepare for Week5 PR)

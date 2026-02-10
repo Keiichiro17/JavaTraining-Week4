@@ -1,8 +1,16 @@
-
-# Ignore build files
+# Gradle / build
 .gradle/
 build/
 data/
 *.mv.db
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS
 .DS_Store
 Thumbs.db
