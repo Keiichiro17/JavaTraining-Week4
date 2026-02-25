@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <!--文字コードをUTF-8に設定する-->
+  <meta charset="UTF-8">
+  <!--ページのタイトルを設定する-->
+  <title>Tasks</title>
+</head>
+<body>
+
+<div th:fragment="layout(content)">
+
+  <header>
+    <h1>Task App</h1>
+  </header>
+
+  <!-- 成功とエラーのメッセージを表示する -->
+  <div th:if="${success}" th:text="${success}" style="color: green;"></div>
+  <div th:if="${error}" th:text="${error}" style="color: red;"></div>
+
+  <main>
+    <div th:replace="${content}"></div>
+  </main>
+
+  <footer>
+    <small>© 2026</small>
+  </footer>
+
+</div>
+
+</body>
+</html>

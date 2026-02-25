@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:replace="layout :: layout(~{::section})">
+  <section>
+
+    <!-- タスクの新規作成と編集でタイトルを切り替える -->
+    <h2 th:text="${mode == 'new'} ? 'タスク新規作成' : 'タスク編集'">タスク</h2>
+
+    <!--フォーム開始と新規と編集-->
+    <form th:action="${mode == 'new'} ? @{/tasks} : @{/tasks/{id}(id=${taskId})}"
+          method="post"
+          th:object="${taskForm}">
+
+<!-- タイトルの入力フィールドとエラーメッセージの表示 -->
+      <div>
+        <label>タイトル</label><br>
+        <input type="text" th:field="*{title}">
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></div>
+      </div>
+
+<!-- 完了のチェックボックス -->
+      <div style="margin-top:10px;">
+        <label>
+          <input type="checkbox" th:field="*{completed}">
+          完了
+        </label>
+      </div>
+
+      <div style="margin-top:15px;">
+        <button type="submit" th:text="${mode == 'new'} ? '登録' : '更新'">送信</button>
+        
+        <!-- タスクの一覧ページへ戻る-->
+        <a th:href="@{/tasks}">戻る</a>
+      </div>
+
+    </form>
+  </section>
+</div>
+
+</body>
+</html>

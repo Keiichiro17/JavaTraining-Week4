@@ -4,6 +4,7 @@ import com.example.taskapp.exception.TaskNotFoundException;
 import com.example.taskapp.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 
 import java.util.List;
 /*タスクを管理するサービスクラス */
@@ -24,6 +25,25 @@ public class TaskService{
     public List<Task> findAll(){
         return repo.findAll();
     }
+
+@Transactional(readOnly=true)
+public Optional<Task> findById(Long id){
+    return repo.findById(id);
+}
+
+public Task updateFromForm(Long id, String title, boolean completed){
+    Task existing=repo.findById(id).orElseThrow(()->new TaskNotFoundException(id));
+    existing.setTitle(title);
+    existing.setCompleted(completed);
+    return existing;
+}
+
+public Task toggleCompleted(Long id){
+    Task existing=repo.findById(id).orElseThrow(()->new TaskNotFoundException(id));
+    existing.setCompleted(!existing.isCompleted());
+    return existing;
+}
+
 
 //新しいタスクを登録する
 
