@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 🧩 第5週課題：DBと連携するSpring Bootアプリを作ろう
 
 〜データ永続化・入力検証・例外処理〜
@@ -147,4 +148,22 @@ READMEに再現手順と結果が明記されている	☐
 	•	データが永続化されることを確認するため、アプリ再起動後もDBにデータが残るかを確認しましょう（H2ならmem→fileに切り替える）。
 	•	バリデーションエラーや例外発生時のレスポンスJSONを整えることで、後のフロント連携に備えられます。
 	•	FlywayやDocker Composeは挑戦的ですが、できれば1名でもトライしてみると実務感がつきます。
+=======
+概要
+
+SpringBootとThymeleafを用いたタスク管理アプリにSpring Securityを用いたログイン認証機能を追加。
+
+ログイン情報
+
+ユーザー名:　testuser
+パスワード:　password
+
+動作確認手順
+
+1.Gitbashでgradlew bootRunを行いアプリケーションを起動。
+2.http://localhost:8080/loginにアクセスする
+3.testuser/passwordでログインする。
+4.自動でtasksページに移動
+5.ログアウト後、ログイン画面に戻る。
+>>>>>>> 0b3345c (JavaTraining-Week7 課題提出)
 
