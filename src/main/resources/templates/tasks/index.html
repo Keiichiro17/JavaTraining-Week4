@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::section})}">
+<section>
+  <!--タスク一覧のタイトル-->
+  <h2>タスク一覧</h2>
+
+  <!--ログアウトボタン-->
+  <form th:action="@{/logout}" method="post">
+    <button type="submit">ログアウト</button>
+  </form>
+
+  <!--タスク新規作成ページへのリンク-->
+  <p>
+    <a class="btn btn-primary" th:href="@{/tasks/new}">新規作成</a>
+  </p>
+
+  <!--タスク一覧のテーブル-->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>タイトル</th>
+        <th>状態</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!--タスクの繰り返し表示-->
+      <tr th:each="t : ${tasks}">
+        <td th:text="${t.id}">1</td>
+        <td th:text="${t.title}">title</td>
+
+        <!--タスクの完了状態を表示-->
+        <td>
+          <span class="badge"
+                th:text="${t.completed} ? '完了' : '未完了'">未完了</span>
+        </td>
+
+        <!--各タスクの操作ボタン-->
+        <td class="actions">
+          <!--編集ページへのリンク-->
+          <a class="btn" th:href="@{|/tasks/${t.id}/edit|}">編集</a>
+
+          <!--削除フォーム-->
+          <form th:action="@{|/tasks/${t.id}/delete|}" method="post" style="display:inline;">
+            <button class="btn" type="submit"
+                    onclick="return confirm('削除しますか？')">削除</button>
+          </form>
+
+          <!--完了状態を切り替えるフォーム-->
+          <form th:action="@{|/tasks/${t.id}/toggle|}" method="post" style="display:inline;">
+            <button class="btn" type="submit"
+                    th:text="${t.completed} ? '未完了に戻す' : '完了にする'">
+              完了にする
+            </button>
+          </form>
+        </td>
+      </tr>
+
+      <!--タスクがない場合の表示-->
+      <tr th:if="${#lists.isEmpty(tasks)}">
+        <td colspan="4">タスクがありません</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+</html>

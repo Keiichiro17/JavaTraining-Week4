@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+<head>
+  <meta charset="UTF-8" />
+  <!--ページタイトル-->
+  <title th:text="${title} ?: 'TaskApp'">TaskApp</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; }
+    header { margin-bottom: 16px; }
+    nav a { margin-right: 12px; }
+    /*フラッシュメッセージ（成功・エラー）*/
+    .flash-success { padding: 10px; background: #e7f7ee; border: 1px solid #bde5c8; margin: 12px 0; }
+    .flash-error { padding: 10px; background: #fde8e8; border: 1px solid #f5b5b5; margin: 12px 0; }
+    /*タスク一覧のテーブルスタイル*/
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #f7f7f7; }
+    /*操作ボタン*/
+    .actions form { display: inline; }
+    /*エラーメッセージを表示*/
+    .error-text { color: #c00; font-size: 0.9em; }
+    .btn { padding: 6px 10px; border: 1px solid #ccc; background: #fff; cursor: pointer; text-decoration: none; }
+    .btn-primary { border-color: #3b82f6; }
+    /*ステータス表示（完了・未完了）*/
+    .badge { padding: 2px 6px; border: 1px solid #ccc; border-radius: 10px; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+<header>
+  <!--アプリのタイトルとナビゲーション-->
+  <h1>TaskApp</h1>
+  <nav>
+    <a th:href="@{/tasks}">Tasks</a>
+    <a th:href="@{/tasks/new}">New</a>
+  </nav>
+<!--成功メッセージを表示-->
+  <div th:if="${success}" class="flash-success" th:text="${success}"></div>
+<!--エラーメッセージを表示-->
+  <div th:if="${error}" class="flash-error" th:text="${error}"></div>
+</header>
+
+<main>
+  <th:block th:replace="${content}"></th:block>
+</main>
+
+<footer style="margin-top: 24px; color: #666;">
+  <small>JavaTraining Final</small>
+</footer>
+</body>
+</html>
