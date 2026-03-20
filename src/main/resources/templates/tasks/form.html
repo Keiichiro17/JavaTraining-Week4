@@ -1,44 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <title>Task Form</title>
-</head>
-<body>
-  <!--アプリケーションタイトル-->
-  <h1>TaskApp</h1>
-
-  <!--ナビゲーション-->
-  <nav>
-    <a th:href="@{/tasks}">Tasks</a>
-    <a th:href="@{/tasks/new}">New</a>
-  </nav>
-<!--編集モードか新規作成モードかでタイトルを切り替える-->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::section})}">
+<section>
+  <!--編集モードか新規作成モードかでタイトルを切り替える-->
   <h2 th:text="${mode} == 'edit' ? 'タスク編集' : 'タスク新規作成'">タスク新規作成</h2>
-<!--タスク登録/更新-->
+
+  <!--タスク登録/更新-->
   <form th:object="${taskForm}"
         th:action="${mode} == 'edit' ? @{|/tasks/${taskId}|} : @{/tasks}"
         method="post">
-<!--タイトル入力-->
+
+    <!--タイトル入力-->
     <div style="margin-bottom: 12px;">
       <label>タイトル</label><br/>
       <input type="text" th:field="*{title}" maxlength="50" style="width: 360px;" />
-<!--タイトル、バリデーションエラー表示-->
+
+      <!--タイトル、バリデーションエラー表示-->
       <div class="error-text"
            th:if="${#fields.hasErrors('title')}"
            th:errors="*{title}">title error</div>
     </div>
-<!--完了状態のチェックボックス-->
+
+    <!--完了状態のチェックボックス-->
     <div style="margin-bottom: 12px;">
       <label>
         <input type="checkbox" th:field="*{completed}" />
         完了
       </label>
     </div>
-<!--登録/更新ボタンと戻るボタン-->
+
+    <!--登録/更新ボタンと戻るボタン-->
     <button class="btn btn-primary" type="submit"
             th:text="${mode} == 'edit' ? '更新' : '登録'">登録</button>
     <a class="btn" th:href="@{/tasks}">戻る</a>
   </form>
-</body>
+</section>
 </html>

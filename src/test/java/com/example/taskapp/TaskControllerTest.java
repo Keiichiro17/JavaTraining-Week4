@@ -11,10 +11,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 
 //タスクアプリの認証機能とアクセス制御を確認するテストクラス
 
@@ -72,4 +75,21 @@ class TaskControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login?logout"));
     }
+@Test
+@WithMockUser(username = "testuser", roles = {"USER"})
+void POST_api_tasks_でタスク作成成功() throws Exception {
+    mockMvc.perform(post("/api/tasks")
+            .with(csrf())
+            .contentType(APPLICATION_JSON)
+            .content("""
+                {
+                  "title": "テストタスク",
+                  "completed": false
+                }
+                """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.title").value("テストタスク"))
+            .andExpect(jsonPath("$.completed").value(false));
+}
+
 }
